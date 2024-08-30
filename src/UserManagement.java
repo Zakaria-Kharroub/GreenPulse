@@ -12,7 +12,7 @@ public class UserManagement {
         User user =users.get(id);
         if (user != null){
             System.out.println("--------------------------------------------");
-            System.out.println("id :" +user.getName() + ", name :"+user.getName() + " ,age : "+user.getAge());
+            System.out.println("id :" +user.getId() + ", name :"+user.getName() + " ,age : "+user.getAge());
             System.out.println("--------------------------------------------");
         }else {
             System.out.println("utilisateur non trouver"+ id);
@@ -27,11 +27,12 @@ public class UserManagement {
         }else {
             for(User user:users.values()){
                 System.out.println("--------------------------------------------");
-                System.out.println("id :" +user.getName() + ", name :"+user.getName() + " ,age : "+user.getAge());
+                System.out.println("id :" +user.getId() + ", name :"+user.getName() + " ,age : "+user.getAge());
 
             }
         }
     }
+
 
 
     public void updateUser(int id,String nouvName,int nouvAge){
@@ -45,6 +46,13 @@ public class UserManagement {
         }
     }
 
-
+    public void deleteUser(int id){
+        if(users.containsKey(id)){
+            users.remove(id);
+            System.out.println("utilisateur delete avec succes ");
+        }else{
+            System.out.println("aucun user trouver");
+        }
+    }
 
 }

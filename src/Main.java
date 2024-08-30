@@ -78,6 +78,7 @@ public class Main {
                     System.out.println("entrez id user vous voulez supprimer");
                     int idDelete = inp.nextInt();
                     inp.nextLine();
+                    userManagement.deleteUser(idDelete);
                     break;
                 case 6:
                     System.out.println("exit");
