@@ -33,8 +33,6 @@ public class UserManagement {
         }
     }
 
-
-
     public void updateUser(int id,String nouvName,int nouvAge){
         User user = users.get(id);
         if(user != null){
@@ -45,7 +43,6 @@ public class UserManagement {
             System.out.println("aucune utilisateur touver"+id);
         }
     }
-
     public void deleteUser(int id){
         if(users.containsKey(id)){
             users.remove(id);
