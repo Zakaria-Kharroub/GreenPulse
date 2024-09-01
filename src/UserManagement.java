@@ -7,6 +7,9 @@ public class UserManagement {
         users.put(user.getId(),user);
         System.out.println("utilisateur ajouter avec success"+user.getName());
     }
+    public boolean userExist(int id){
+        return users.containsKey(id);
+    }
 
     public void afficherUserById(int id){
         User user =users.get(id);

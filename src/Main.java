@@ -14,16 +14,19 @@ public class Main {
         Scanner inp = new Scanner(System.in);
 
         System.out.println("bienvenue dans notre application");
-        System.out.println("----------------------------------");
-
         int choix;
         do {
-            System.out.println("1 - ajouter utilisateur");
-            System.out.println("2 - afficher un utilisateur");
-            System.out.println("3 - afficher tous les utilisateurs");
-            System.out.println("4 - update utilisateur");
-            System.out.println("5 - supprimer utilisateur");
-            System.out.println("6 - exit");
+            System.out.println("+------------------------------------------+");
+            System.out.println("|                   Menu                   |");
+            System.out.println("+------------------------------------------+");
+            System.out.println("| 1 - ajouter utilisateur                  |");
+            System.out.println("| 2 - afficher un utilisateur              |");
+            System.out.println("| 3 - afficher tous les utilisateurs       |");
+            System.out.println("| 4 - update utilisateur                   |");
+            System.out.println("| 5 - supprimer utilisateur                |");
+            System.out.println("| 6 - exit                                 |");
+            System.out.println("+------------------------------------------+");
+
 
             choix = inp.nextInt();
             inp.nextLine();
@@ -33,6 +36,11 @@ public class Main {
                     System.out.println("entrez id user");
                     int id = inp.nextInt();
                     inp.nextLine();
+
+                    if(userManagement.userExist(id)){
+                        System.out.println("user de id " + id + " deja existe");
+                        break;
+                    }
 
                     System.out.println("entrez name user");
                     String name = inp.nextLine();
