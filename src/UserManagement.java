@@ -5,7 +5,7 @@ public class UserManagement {
 
     public void addUser(User user){
         users.put(user.getId(),user);
-        System.out.println("utilisateur ajouter avec success"+user.getName());
+        System.out.println(user.getName() + " ajouter avec succes");
     }
     public boolean userExist(int id){
         return users.containsKey(id);
@@ -22,7 +22,22 @@ public class UserManagement {
         }
     }
 
+    public void afficherDetailUseConsomation(int id) {
+        User user = users.get(id);
+        if (user != null) {
+            System.out.println("--------------------------------------------");
+            System.out.println("id: " + user.getId() + ", name: " + user.getName() + ", age: " + user.getAge());
+            System.out.println("--------------------------------------------");
 
+            System.out.println("et ses consomations:");
+            for (Consomation consomation : user.getConsomations()) {
+                System.out.println(consomation.getDateDebut() + " => " +consomation.getDateFin() +" quantite : " + consomation.getQuantite());
+                System.out.println("--------------------------------------------");
+            }
+        } else {
+            System.out.println("utilisateur not found");
+        }
+    }
 
     public void afficherUser(){
         if (users.isEmpty()){
@@ -31,7 +46,6 @@ public class UserManagement {
             for(User user:users.values()){
                 System.out.println("--------------------------------------------");
                 System.out.println("id :" +user.getId() + ", name :"+user.getName() + " ,age : "+user.getAge());
-
             }
         }
     }
@@ -54,5 +68,20 @@ public class UserManagement {
             System.out.println("aucun user trouver");
         }
     }
+
+
+
+    public void addConsomationToUser(int userId,Consomation consomation){
+        User user = users.get(userId);
+                if(user != null){
+                    user.addConsomation(consomation);
+                    System.out.println("consomation ajouter avec sucess");
+                }else {
+                    System.out.println("utilisateur not found");
+                }
+    }
+
+
+    
 
 }

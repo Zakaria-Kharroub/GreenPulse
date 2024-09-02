@@ -24,7 +24,9 @@ public class Main {
             System.out.println("| 3 - afficher tous les utilisateurs       |");
             System.out.println("| 4 - update utilisateur                   |");
             System.out.println("| 5 - supprimer utilisateur                |");
-            System.out.println("| 6 - exit                                 |");
+            System.out.println("| 6 - ajouter consomation Carbon           |");
+            System.out.println("| 7 - afficher detail user with Consomation|");
+            System.out.println("| 8 - exit                                 |");
             System.out.println("+------------------------------------------+");
 
 
@@ -79,8 +81,6 @@ public class Main {
                     userManagement.updateUser(idUpdate,nouvName,nouvAge);
 
 
-
-
                     break;
                 case 5:
                     System.out.println("entrez id user vous voulez supprimer");
@@ -88,17 +88,48 @@ public class Main {
                     inp.nextLine();
                     userManagement.deleteUser(idDelete);
                     break;
+
                 case 6:
+                    System.out.println("entrez id de user");
+                    int userId = inp.nextInt();
+                    inp.nextLine();
+
+                    if (!userManagement.userExist(userId)) {
+                        System.out.println("user de id " + userId + " existe pas");
+                        break;
+                    }
+
+                    System.out.println("enter quantite de consomation");
+                    int quantite = inp.nextInt();
+                    inp.nextLine();
+
+                    System.out.println("enter date debut (YYYY-MM-DD)");
+                    LocalDate dateDebut = LocalDate.parse(inp.nextLine());
+
+                    System.out.println("enter date fin (YYYY-MM-DD)");
+                    LocalDate dateFin = LocalDate.parse(inp.nextLine());
+
+                    Consomation consomation = new Consomation(quantite, dateDebut, dateFin);
+                    userManagement.addConsomationToUser(userId, consomation);
+                    break;
+
+                case 7:
+                    System.out.println("entrez id de user vous voulez afficher detail consomation : ");
+                    int userDetailId = inp.nextInt();
+                    inp.nextLine();
+                    userManagement.afficherDetailUseConsomation(userDetailId);
+                    break;
+
+
+                case 8:
                     System.out.println("exit");
                     break;
+
                 default:
                     System.out.println("choix invalid");
                     break;
-
-
-
             }
-        }while (choix !=6);
+        }while (choix !=8);
 
 
     }
