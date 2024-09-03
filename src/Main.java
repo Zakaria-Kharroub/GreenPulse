@@ -26,7 +26,10 @@ public class Main {
             System.out.println("| 5 - supprimer utilisateur                |");
             System.out.println("| 6 - ajouter consomation Carbon           |");
             System.out.println("| 7 - afficher detail user with Consomation|");
-            System.out.println("| 8 - exit                                 |");
+            System.out.println("| 8 - rapport consomation DAILY            |");
+            System.out.println("| 9 - rapport consomation WEEKLY           |");
+            System.out.println("| 10 - rapport consomation MONTLY          |");
+            System.out.println("| 11 - exit                                |");
             System.out.println("+------------------------------------------+");
 
 
@@ -47,7 +50,7 @@ public class Main {
                     System.out.println("entrez name user");
                     String name = inp.nextLine();
 
-                    System.out.println("entrez age age");
+                    System.out.println("entrez age");
                     int age =inp.nextInt();
                     inp.nextLine();
                     User nouvUser = new User(id,name,age);
@@ -117,11 +120,30 @@ public class Main {
                     System.out.println("entrez id de user vous voulez afficher detail consomation : ");
                     int userDetailId = inp.nextInt();
                     inp.nextLine();
-                    userManagement.afficherDetailUseConsomation(userDetailId);
+                    userManagement.afficherDetailUserConsomation(userDetailId);
+
                     break;
 
 
-                case 8:
+                    case 8:
+                        System.out.println("id de user pour generer rapport de consomation daily : ");
+                        int userIdRapD = inp.nextInt();
+                        inp.nextLine();
+                        userManagement.rapportConsomationDaily(userIdRapD);
+                        break;
+                case 9:
+                    System.out.println("id de user pour generer rapport de consomation daily : ");
+                    int userIdRapW = inp.nextInt();
+                    inp.nextLine();
+
+                    break;
+                case 10:
+                    System.out.println("id de user pour generer rapport deconsomation weekly : ");
+                    int userIdRapM=inp.nextInt();
+                    break;
+
+
+                case 11:
                     System.out.println("exit");
                     break;
 
@@ -129,7 +151,7 @@ public class Main {
                     System.out.println("choix invalid");
                     break;
             }
-        }while (choix !=8);
+        }while (choix !=11);
 
 
     }

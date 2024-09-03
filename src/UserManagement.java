@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 
 public class UserManagement {
@@ -22,22 +24,7 @@ public class UserManagement {
         }
     }
 
-    public void afficherDetailUseConsomation(int id) {
-        User user = users.get(id);
-        if (user != null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("id: " + user.getId() + ", name: " + user.getName() + ", age: " + user.getAge());
-            System.out.println("--------------------------------------------");
 
-            System.out.println("et ses consomations:");
-            for (Consomation consomation : user.getConsomations()) {
-                System.out.println(consomation.getDateDebut() + " => " +consomation.getDateFin() +" quantite : " + consomation.getQuantite());
-                System.out.println("--------------------------------------------");
-            }
-        } else {
-            System.out.println("utilisateur not found");
-        }
-    }
 
     public void afficherUser(){
         if (users.isEmpty()){
@@ -80,6 +67,69 @@ public class UserManagement {
                     System.out.println("utilisateur not found");
                 }
     }
+
+
+
+    public void afficherDetailUserConsomation(int id) {
+        User user = users.get(id);
+        if (user != null) {
+            System.out.println("--------------------------------------------");
+            System.out.println("id: " + user.getId() + ", name: " + user.getName() + ", age: " + user.getAge());
+            System.out.println("--------------------------------------------");
+
+            System.out.println("et ses consomations:");
+            for (Consomation consomation : user.getConsomations()) {
+                System.out.println(consomation.getDateDebut() + " => " +consomation.getDateFin() +" quantite : " + consomation.getQuantite());
+                System.out.println("--------------------------------------------");
+            }
+        } else {
+            System.out.println("utilisateur not found");
+        }
+    }
+
+
+    public void rapportConsomationDaily(int userId){
+        User user = users.get(userId);
+        if (user !=null){
+            for (Consomation consomation:user.getConsomations()){
+                LocalDate startDate= consomation.getDateDebut();
+                LocalDate endDate = consomation.getDateFin();
+
+                double nbJour = ChronoUnit.DAYS.between(startDate,endDate);
+                int consomationDaily = consomation.getQuantite()/(int) nbJour;
+
+                for (LocalDate date = startDate; !date.isAfter(endDate);date=date.plusDays(1)){
+                    System.out.println("dans " +date +" consome "+consomationDaily +"mg");
+                }
+
+
+            }
+
+        }else {
+            System.out.println("utilisateur not found");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
