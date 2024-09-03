@@ -95,20 +95,34 @@ public class UserManagement {
                 LocalDate startDate= consomation.getDateDebut();
                 LocalDate endDate = consomation.getDateFin();
 
-                double nbJour = ChronoUnit.DAYS.between(startDate,endDate);
-                int consomationDaily = consomation.getQuantite()/(int) nbJour;
+                long nbJour = ChronoUnit.DAYS.between(startDate,endDate);
+                long consomationDaily = consomation.getQuantite()/ nbJour;
 
                 for (LocalDate date = startDate; !date.isAfter(endDate);date=date.plusDays(1)){
                     System.out.println("dans " +date +" consome "+consomationDaily +"mg");
                 }
-
-
             }
-
         }else {
             System.out.println("utilisateur not found");
         }
     }
+
+    public void rapportConsomationWeekly(int userId){
+        User user=users.get(userId);
+        if(user != null){
+            for (Consomation consomation :user.getConsomations()){
+                LocalDate startDate = consomation.getDateDebut();
+                LocalDate endDate = consomation.getDateFin();
+
+                long nbrJour= ChronoUnit.DAYS.between(startDate,endDate);
+//                a demain
+
+            }
+        }
+    }
+
+
+
 
 
 

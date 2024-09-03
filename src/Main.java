@@ -132,13 +132,14 @@ public class Main {
                         userManagement.rapportConsomationDaily(userIdRapD);
                         break;
                 case 9:
-                    System.out.println("id de user pour generer rapport de consomation daily : ");
+                    System.out.println("id de user pour generer rapport de consomation weekly : ");
                     int userIdRapW = inp.nextInt();
                     inp.nextLine();
+                    userManagement.rapportConsomationWeekly(userIdRapW);
 
                     break;
                 case 10:
-                    System.out.println("id de user pour generer rapport deconsomation weekly : ");
+                    System.out.println("id de user pour generer rapport deconsomation nomtly : ");
                     int userIdRapM=inp.nextInt();
                     break;
 
