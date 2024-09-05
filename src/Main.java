@@ -1,4 +1,8 @@
+import Util.Util;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -38,25 +42,37 @@ public class Main {
 
             switch (choix){
                 case 1:
-                    System.out.println("entrez id user");
-                    int id = inp.nextInt();
-                    inp.nextLine();
+                    boolean inputValid = false;
+                    while (!inputValid) {
 
-                    if(userManagement.userExist(id)){
-                        System.out.println("user de id " + id + " deja existe");
-                        break;
+                        try {
+                            System.out.println("entrez id user");
+                            int id = inp.nextInt();
+                            inp.nextLine();
+
+                            if (userManagement.userExist(id)) {
+                                System.out.println("user de id " +id + " deja existe");
+                                break;
+                            }
+
+                            System.out.println("entrez name user");
+                            String name= inp.nextLine();
+
+                            System.out.println("entrez age");
+                            int age = inp.nextInt();
+                            inp.nextLine();
+
+                            User nouvUser= new User(id, name, age);
+                            userManagement.addUser(nouvUser);
+                            inputValid = true;
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("valeur invalid pls ressayer");
+                            inp.nextLine();
+                        }
                     }
-
-                    System.out.println("entrez name user");
-                    String name = inp.nextLine();
-
-                    System.out.println("entrez age");
-                    int age =inp.nextInt();
-                    inp.nextLine();
-                    User nouvUser = new User(id,name,age);
-                    userManagement.addUser(nouvUser);
-
                     break;
+
 
                 case 2:
                     System.out.println("entrez id d'utilisateur vous voulez afficher");
@@ -93,27 +109,62 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.println("entrez id de user");
-                    int userId = inp.nextInt();
-                    inp.nextLine();
+                    boolean inputValid2 = false;
+                    while (!inputValid2) {
+                        try{
+                            System.out.println("entrez id de user");
+                            int userId = inp.nextInt();
+                            inp.nextLine();
 
-                    if (!userManagement.userExist(userId)) {
-                        System.out.println("user de id " + userId + " existe pas");
-                        break;
+                            if (!userManagement.userExist(userId)){
+                                System.out.println("user de id " + userId + " existe pas");
+                                continue;
+                            }
+
+                            System.out.println("enter quantite de consomation");
+                            int quantite = inp.nextInt();
+                            inp.nextLine();
+
+                            if (quantite <= 0) {
+                                System.out.println("La qantite plus zero");
+                                continue;
+                            }
+
+
+                            System.out.println("enter date debut (YYYY-MM-DD)");
+                            LocalDate dateDebut;
+                            try {
+                                dateDebut = LocalDate.parse(inp.nextLine());
+                            } catch (DateTimeParseException e) {
+                                System.out.println("format date invalide");
+                                continue;
+                            }
+
+                            System.out.println("enter date fin (YYYY-MM-DD)");
+                            LocalDate dateFin;
+
+                            try {
+                                dateFin = LocalDate.parse(inp.nextLine());
+                            } catch (DateTimeParseException e){
+                                System.out.println("format date invalide");
+                                continue;
+                            }
+
+                            if (dateDebut.isAfter(dateFin)) {
+                                System.out.println("date debut doit etre avant ou egale date fin");
+                                continue;
+                            }
+
+
+                            Consomation consomation = new Consomation(quantite,dateDebut,dateFin);
+                            userManagement.addConsomationToUser(userId,consomation);
+                            inputValid2= true;
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("valeur invalid pls ressayer");
+                            inp.nextLine();
+                        }
                     }
-
-                    System.out.println("enter quantite de consomation");
-                    int quantite = inp.nextInt();
-                    inp.nextLine();
-
-                    System.out.println("enter date debut (YYYY-MM-DD)");
-                    LocalDate dateDebut = LocalDate.parse(inp.nextLine());
-
-                    System.out.println("enter date fin (YYYY-MM-DD)");
-                    LocalDate dateFin = LocalDate.parse(inp.nextLine());
-
-                    Consomation consomation = new Consomation(quantite, dateDebut, dateFin);
-                    userManagement.addConsomationToUser(userId, consomation);
                     break;
 
                 case 7:
@@ -123,7 +174,6 @@ public class Main {
                     userManagement.afficherDetailUserConsomation(userDetailId);
 
                     break;
-
 
                     case 8:
                         System.out.println("id de user pour generer rapport de consomation daily : ");
@@ -135,12 +185,12 @@ public class Main {
                     System.out.println("id de user pour generer rapport de consomation weekly : ");
                     int userIdRapW = inp.nextInt();
                     inp.nextLine();
-                    userManagement.rapportConsomationWeekly(userIdRapW);
 
                     break;
                 case 10:
                     System.out.println("id de user pour generer rapport deconsomation nomtly : ");
                     int userIdRapM=inp.nextInt();
+                    userManagement.rapportConsomationMontly(userIdRapM);
                     break;
 
 

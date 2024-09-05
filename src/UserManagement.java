@@ -95,7 +95,7 @@ public class UserManagement {
                 LocalDate startDate= consomation.getDateDebut();
                 LocalDate endDate = consomation.getDateFin();
 
-                long nbJour = ChronoUnit.DAYS.between(startDate,endDate);
+                long nbJour = ChronoUnit.DAYS.between(startDate,endDate)+1;
                 long consomationDaily = consomation.getQuantite()/ nbJour;
 
                 for (LocalDate date = startDate; !date.isAfter(endDate);date=date.plusDays(1)){
@@ -107,17 +107,31 @@ public class UserManagement {
         }
     }
 
-    public void rapportConsomationWeekly(int userId){
-        User user=users.get(userId);
-        if(user != null){
-            for (Consomation consomation :user.getConsomations()){
+
+
+
+
+
+
+
+
+    public void rapportConsomationMontly(int userId) {
+        User user = users.get(userId);
+        if (user !=null) {
+            for (Consomation consomation : user.getConsomations()) {
                 LocalDate startDate = consomation.getDateDebut();
-                LocalDate endDate = consomation.getDateFin();
+                LocalDate endDate= consomation.getDateFin();
 
-                long nbrJour= ChronoUnit.DAYS.between(startDate,endDate);
-//                a demain
+                long nbMois= ChronoUnit.MONTHS.between(startDate, endDate) + 1;
+                long consomationMountly= consomation.getQuantite() / nbMois;
 
+                for (LocalDate date = startDate; !date.isAfter(endDate); date= date.plusMonths(1)) {
+                    System.out.println("dans moi " + date.getMonth() + " " + date.getYear() +
+                             " consome : " + consomationMountly + " mg");
+                }
             }
+        } else {
+            System.out.println("Utilisateur not found");
         }
     }
 
@@ -146,6 +160,12 @@ public class UserManagement {
 
 
 
-    
+
+
+
+
+
+
+
 
 }
